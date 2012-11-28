@@ -135,50 +135,46 @@
       url:"http://tiles.mapc.org/trailmap/{z}/{x}/{y}.png"
       });
 
-    
-  L.tileLayer={
-    openStreetMap:{
-        mapnik:function(){return new L.TileLayer.OpenStreetMap.Mapnik;},
-        de:function(){return new L.TileLayer.OpenStreetMap.DE;},
-        blackAndWhite:function(){return new L.TileLayer.OpenStreetMap.BlackAndWhite;}
-    },
-    thunderforest:{
-        openCycleMap:function(){return new L.TileLayer.Thunderforest.OpenCycleMap;},
-        transport:function(){return new L.TileLayer.Thunderforest.Transport;},
-        landscape:function(){return new L.TileLayer.Thunderforest.Landscape;}
-    },
-    mapQuestOpen:{
-        osm:function(){return new L.TileLayer.MapQuestOpen.OSM;},
-        aerial:function(){return new L.TileLayer.MapQuestOpen.Aerial;}
-    },
-	mapBox:{
-        simple:function(){return new L.TileLayer.MapBox.Simple;},
-        streets:function(){return new L.TileLayer.MapBox.Streets;},
-        light:function(){return new L.TileLayer.MapBox.Light;},
-        lacquer:function(){return new L.TileLayer.MapBox.Lacquer;},
-        warden:function(){return new L.TileLayer.MapBox.Warden;}
-    },
-    stamen:{
-        toner:function(){return new L.TileLayer.Stamen.Toner;},
-        terrain:function(){return new L.TileLayer.Stamen.Terrain;},
-        watercolor:function(){return new L.TileLayer.Stamen.Watercolor;}
-    },
-    esri:{
-        worldStreetMap:function(){return new L.TileLayer.Esri.WorldStreetMap;},
-        deLorme:function(){return new L.TileLayer.Esri.DeLorme;},
-        worldTopoMap:function(){return new L.TileLayer.Esri.WorldTopoMap;},
-        worldImagery:function(){return new L.TileLayer.Esri.WorldImagery;},
-        oceanBasemap:function(){return new L.TileLayer.Esri.OceanBasemap;},
-        natGeoWorldMap:function(){return new L.TileLayer.Esri.NatGeoWorldMap;}
-    },
-    topOSM:{
+  //lowercase methods
+  L.tileLayer.openStreetMap = {
+    mapnik:function(){return new L.TileLayer.OpenStreetMap.Mapnik;},
+    de:function(){return new L.TileLayer.OpenStreetMap.DE;},
+    blackAndWhite:function(){return new L.TileLayer.OpenStreetMap.BlackAndWhite;}
+  };
+  L.tileLayer.thunderforest = {
+    openCycleMap:function(){return new L.TileLayer.Thunderforest.OpenCycleMap;},
+    transport:function(){return new L.TileLayer.Thunderforest.Transport;},
+    landscape:function(){return new L.TileLayer.Thunderforest.Landscape;}
+  };
+  L.tileLayer.mapQuestOpen = {
+    osm:function(){return new L.TileLayer.MapQuestOpen.OSM;},
+    aerial:function(){return new L.TileLayer.MapQuestOpen.Aerial;}
+  };
+  L.tileLayer.mapBox = {
+    simple:function(){return new L.TileLayer.MapBox.Simple;},
+    streets:function(){return new L.TileLayer.MapBox.Streets;},
+    light:function(){return new L.TileLayer.MapBox.Light;},
+    lacquer:function(){return new L.TileLayer.MapBox.Lacquer;},
+    warden:function(){return new L.TileLayer.MapBox.Warden;}
+  };
+  L.tileLayer.stamen = {
+    toner:function(){return new L.TileLayer.Stamen.Toner;},
+    terrain:function(){return new L.TileLayer.Stamen.Terrain;},
+    watercolor:function(){return new L.TileLayer.Stamen.Watercolor;}
+  };
+  L.tileLayer.esri = {
+    worldStreetMap:function(){return new L.TileLayer.Esri.WorldStreetMap;},
+    deLorme:function(){return new L.TileLayer.Esri.DeLorme;},
+    worldTopoMap:function(){return new L.TileLayer.Esri.WorldTopoMap;},
+    worldImagery:function(){return new L.TileLayer.Esri.WorldImagery;},
+    oceanBasemap:function(){return new L.TileLayer.Esri.OceanBasemap;},
+    natGeoWorldMap:function(){return new L.TileLayer.Esri.NatGeoWorldMap;}
+  };
+  L.tileLayer.topOSM = {
     ma:function(){return new L.TileLayer.TopOSM.MA;}
-    },
-    mapc:{
-      base:function(){return new L.TileLayer.MAPC.Base;},
-      trailmap:function(){return new L.TileLayer.MAPC.Trailmap;}
-      
-      
-    }
-}
+  };
+  L.tileLayer.mapc = {
+    base:function(){return new L.TileLayer.MAPC.Base;},
+    trailmap:function(){return new L.TileLayer.MAPC.Trailmap;}
+  };
 }());

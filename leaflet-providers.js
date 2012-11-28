@@ -125,8 +125,8 @@
   });
   L.TileLayer.TopOSM.MA=L.TileLayer.TopOSM;
   //MAPC
-   var mapcATR ='Map tiles by <a href="http://mapc.org">MAPC</a>, Data by <a href="http://www.mass.gov/mgis/">MassGIS</a>.';
-    L.TileLayer.MAPC = L.TileLayer.Common.extend({
+  var mapcATR ='Map tiles by <a href="http://mapc.org">MAPC</a>, Data by <a href="http://www.mass.gov/mgis/">MassGIS</a>.';
+  L.TileLayer.MAPC = L.TileLayer.Common.extend({
     url: "http://tiles.mapc.org/basemap/{z}/{x}/{y}.png",
     options: {attribution:mapcATR,"minZoom": 9,"maxZoom": 17}
   });

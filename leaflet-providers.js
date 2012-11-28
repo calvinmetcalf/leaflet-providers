@@ -85,6 +85,10 @@
     url: 'http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png',
     options: {minZoom:4, maxZoom:18}
   });
+  L.TileLayer.Stamen.TerrainBackground = L.TileLayer.Stamen.extend({
+    url: 'http://{s}.tile.stamen.com/terrain-background/{z}/{x}/{y}.png',
+    options: {minZoom:4, maxZoom:18}
+  });
   L.TileLayer.Stamen.Watercolor = L.TileLayer.Stamen.extend({
     url: 'http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png',
     options: {minZoom:3, maxZoom:16}
@@ -118,7 +122,7 @@
     options: {attribution:EsriAttr + ' &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC'}
   });
   //toposm
-  var TopOSMAttr = 'Map by <a href="http://wiki.openstreetmap.org/wiki/User:Ahlzen">Lars Ahlzen</a>    &nbsp;&nbsp;&bull;&nbsp;&nbsp;	License: <a href="http://creativecommons.org/licenses/by-sa/2.0/" >CC-BY-SA</a>	&nbsp;&nbsp;&bull;&nbsp;&nbsp;	Data from <a href="http://www.openstreetmap.org">OpenStreetMap</a> and	<a href="http://www.mass.gov/mgis/">MassGIS</a>	&nbsp;&nbsp;&bull;&nbsp;&nbsp;	<a href="http://wiki.openstreetmap.org/wiki/TopOSM">More info about TopOSM</a>;'
+  var TopOSMAttr = 'Map by <a href="http://wiki.openstreetmap.org/wiki/User:Ahlzen">Lars Ahlzen</a>    &nbsp;&nbsp;&bull;&nbsp;&nbsp;    License: <a href="http://creativecommons.org/licenses/by-sa/2.0/" >CC-BY-SA</a>    &nbsp;&nbsp;&bull;&nbsp;&nbsp;	Data from <a href="http://www.openstreetmap.org">OpenStreetMap</a> and	<a href="http://www.mass.gov/mgis/">MassGIS</a>	&nbsp;&nbsp;&bull;&nbsp;&nbsp;	<a href="http://wiki.openstreetmap.org/wiki/TopOSM">More info about TopOSM</a>;'
   L.TileLayer.TopOSM = L.TileLayer.Common.extend({
     url: 'http://tile{s}.toposm.com/ma/final/{z}/{x}/{y}.png',
     options: {attribution:TopOSMAttr,subdomains:['1','2','3']}
@@ -160,6 +164,7 @@
   L.tileLayer.stamen = {
     toner:function(){return new L.TileLayer.Stamen.Toner;},
     terrain:function(){return new L.TileLayer.Stamen.Terrain;},
+    terrainbackground:function(){return new L.TileLayer.Stamen.TerrainBackground;},
     watercolor:function(){return new L.TileLayer.Stamen.Watercolor;}
   };
   L.tileLayer.esri = {
@@ -176,5 +181,28 @@
   L.tileLayer.mapc = {
     base:function(){return new L.TileLayer.MAPC.Base;},
     trailmap:function(){return new L.TileLayer.MAPC.Trailmap;}
+  };
+  //controls!
+  L.control.layers.filled = function(base, overlay, options){
+      var map;
+      if("map" in options){map = options.map; delete options.map;};
+        var len = base.length;
+        if(len === 0){return {}};
+        var out = {};
+        for(var i = 0;i<len;i++){
+            var layer = base[i];
+            var layerParts = layer.split(".");
+            if(layerParts.length ===2 && layerParts[0] in L.TileLayer && layerParts[01] in L.TileLayer[layerParts[0]]){
+                out[layerParts.join(" ")] = new L.TileLayer[layerParts[0]][layerParts[1]];
+                if(i===0 && map){
+                    out[layerParts.join(" ")].addTo(map);
+                }
+            }
+        }
+    var lc = L.control.layers(out, overlay, options);
+    if(map){
+        lc.addTo(map)
+    }
+    return lc;
   };
 }());
